@@ -16,4 +16,19 @@ class BankIntegrationViewController: UIViewController {
         
         // Example:
         // self.transactions = fetchBankTransactions()
-        // self
+        // self.tableView.reloadData()
+    }
+}
+
+extension BankIntegrationViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return transactions.count
+    }
+    
+    func tableView(_ tableView: UITableViewCell, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionCell", for: indexPath)
+        let transaction = transactions[indexPath.row]
+        cell.textLabel?.text = "\(transaction.category ?? "") - \(transaction.amount)"
+        return cell
+    }
+}
